@@ -145,6 +145,21 @@ Use the preview control to enable or disable extension previews.
 
 ---
 
+## NEW - AV Extension (Latent 0 Protection)
+
+`NEW - AV Extension (Latent 0 Protection).json`
+
+The AV Extension workflow with degradation protection added to Extensions 2-6. Everything else is the same as `NEW - AV Extension.json`.
+
+Each of those extensions has:
+
+- `H3 Motion Context Noise` between `H3 Generated AV Masked Context` and the sampler. It catches each clip's first latent, locks shot 1's clean latent 0 into the held head (latent 0 protection), and gives the other held latents part of the noise, fading to clean at the join (context noise).
+- `H3 Latent 0 Attention` between the model and the guider. It pulls attention toward that protected latent 0 on the brightness blocks (`31-33, 36-38, 40-41, 44, 47`), taking it only from the other held frames (`context group`).
+
+Shot 1 is Extension 1's clip. Press **reset caught latents** on any Motion Context Noise node before starting a new video, so shot 1 is the new video's Extension 1.
+
+---
+
 
 ## UTILITY - AV Bridge
 
