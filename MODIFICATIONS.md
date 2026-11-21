@@ -616,3 +616,8 @@ The Step-1n combined CPU/static regression suite passes 167 checks before final 
 
 - Embedded the supplied **MINIMAX H3 AV EXTENSION — PROMPT DIRECTOR** directly at the top of `NEW - AV Extension.json` as a workflow Note for copy/paste prompt planning guidance.
 - Removed the stale workflow-note instruction to manually enable extensions in order; the bundled controller owns managed extension-group activation through **Active Extensions**.
+
+### H3 Latent 0 Attention
+
+- Added `H3 Latent 0 Attention` (`h3_latent0_attention.py`), ported from Geiru Keystone Attention in roycho87/geiru_context_suite (GPL-3.0). It moves attention toward the protected latent 0 inside the slice shared by latent 0 and the other held frames ("context group"), or across the full attention ("full attention"). Default blocks: the brightness set from NerdNotes test 21 (`31-33, 36-38, 40-41, 44, 47`).
+- `H3 Motion Context Noise` now marks its output latent with `h3_latent0_slots` when latent 0 protection locks latent 0 in, so `H3 Latent 0 Attention` knows which latent to pull toward. With degradation protection or latent 0 protection off, the attention node passes through.

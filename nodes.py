@@ -1806,3 +1806,11 @@ from .h3_motion_context_noise import (
 )
 NODE_CLASS_MAPPINGS.update(_MCN_CLASSES)
 NODE_DISPLAY_NAME_MAPPINGS.update(_MCN_NAMES)
+
+# H3 Latent 0 Attention (attention balance toward the protected latent 0)
+from .h3_latent0_attention import (
+    NODE_CLASS_MAPPINGS as _KA_CLASSES,
+    NODE_DISPLAY_NAME_MAPPINGS as _KA_NAMES,
+)
+NODE_CLASS_MAPPINGS.update(_KA_CLASSES)
+NODE_DISPLAY_NAME_MAPPINGS.update(_KA_NAMES)

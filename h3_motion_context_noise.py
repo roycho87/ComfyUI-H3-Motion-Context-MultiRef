@@ -322,6 +322,7 @@ class MiniMaxH3MotionContextNoise:
         video = video.clone()
         vmask = masks[0].clone()
         originals = {}
+        locked0 = False
 
         # 2. latent 0 protection
         if latent_0_protection:
@@ -336,6 +337,7 @@ class MiniMaxH3MotionContextNoise:
                     print(f"[{WHO}] shot {source_shot} isn't caught yet - using shot {used} instead")
                 originals[0] = video[:, :, 0:1].clone()
                 video[:, :, 0:1] = lat0.to(device=video.device, dtype=video.dtype)
+                locked0 = True
                 print(f"[{WHO}] latent 0 locked to shot {used}'s clean latent 0")
 
         # 3. context noise
@@ -362,6 +364,8 @@ class MiniMaxH3MotionContextNoise:
             out["noise_mask"] = comfy.nested_tensor.NestedTensor(tuple(new_masks))
         else:
             out["samples"], out["noise_mask"] = video, vmask
+        if locked0:
+            out["h3_latent0_slots"] = [0]       # read by H3 Latent 0 Attention: latent 0 is protected
 
         m = model.clone()
         m.add_wrapper_with_key(comfy.patcher_extension.WrappersMP.OUTER_SAMPLE, "h3_motion_context_noise_restore",
